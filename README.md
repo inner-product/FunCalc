@@ -19,13 +19,19 @@ The text in the `notes` directory guides you through completion of the project. 
 
 The first two components of the project don't require any special setup, beyond installing the JVM for Scala. The spreadsheet itself has additional prerequisites:
 
- - [Node.js](https://nodejs.org/en/download/)
- - [Yarn](https://yarnpkg.com/en/docs/install)
+ - [Node.js and NPM](https://nodejs.org/en/download/)
 
 
 ## Development
 
-For the spreadsheet part
+### Everything but the Spreadsheet
+
+Develop code as usual. When you compile code you might see errors coming from the Scala.js components. To avoid this you can switch to just the JVM components. In `sbt` use the command `project rootJVM`.
+
+
+### The Spreadsheet
+
+Switching to the Javascript part of the project might help: `project rootJS` in `sbt`.
 
 ### Create a module
 in sbt shell: `fastOptJS::webpack` or `fullOptJS::webpack`
@@ -38,8 +44,7 @@ and auto-reload the page.
 webpack dev server will close automatically when you stop the `dev` task
 (e.g by hitting `Enter` in the sbt shell while you are in `dev` watch mode).
 
-If you existed ungracefully and your webpack dev server is still open (check with `ps -aef | grep -v grep | grep webpack`),
-you can close it by running `fastOptJS::stopWebpackDevServer` in sbt.
+If you exited ungracefully and your webpack dev server is still open (check with `ps -aef | grep -v grep | grep webpack`), you can close it by running `fastOptJS::stopWebpackDevServer` in sbt.
 
 
 [your-own-excel]: http://tomasp.net/blog/2018/write-your-own-excel/
