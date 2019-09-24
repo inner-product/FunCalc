@@ -1,15 +1,23 @@
 package funcalc
 
+import cats.effect.IO
 import outwatch.dom._
-import outwatch.dom.dsl._
 import monix.execution.Scheduler.Implicits.global
 
-final case class Index(row: Int, col: Char)
-
-
 object FunCalc {
+
+  val expressions: IO[Handler[Map[Index, String]]] =
+    Handler.create(Map.empty)
+
   def main(args: Array[String]): Unit = {
 
-    OutWatch.renderInto("#app", h1("Hello World")).unsafeRunSync()
+    val program: IO[Unit] =
+      for {
+        expr <- expressions
+        rdr  <- Render.render(expr)
+        _    <- OutWatch.renderInto("#app", rdr)
+      } yield ()
+
+    program.unsafeRunSync()
   }
 }

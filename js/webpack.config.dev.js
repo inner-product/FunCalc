@@ -6,8 +6,8 @@ const Path = require('path');
 const rootDir = Path.resolve(__dirname, '../../../..');
 module.exports.devServer = {
     contentBase: [
-           Path.resolve(__dirname, 'dev'), // fastOptJS output
-           Path.resolve(rootDir, 'assets') // project root containing index.html
+        Path.resolve(rootDir, 'assets'), // project root containing index.html
+        Path.resolve(__dirname, 'dev')   // fastOptJS output
     ],
     watchContentBase: true,
     hot: false,

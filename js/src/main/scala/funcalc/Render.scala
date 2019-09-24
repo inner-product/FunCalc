@@ -1,15 +1,22 @@
 package funcalc
 
-// import outwatch.dom._
-// import outwatch.dom.dsl._
+import cats.effect.IO
+import outwatch.dom._
+import outwatch.dom.dsl._
 
 object Render {
-  val maxRow = 20
-  val maxCol = 'G'
 
-  // def render(values: Map[Index, String]) =
-  //   for {
-  //     r <- 1.to(maxRow)
-  //     c <- 'A'.toInt.to(maxCol.toInt)
-  //   } yield h1(values.get(Index(r, c.toChar)).getOrElse(""))
+  val selected: IO[Handler[Index]] =
+    Handler.create(Index(1, 'A'))
+
+  // def isSelected(row: Int, col: Char): Boolean =
+  //   selected.map { case (r, c) => r == row && c == col }.getOrElse(false)
+
+  def render(expressions: Handler[Map[Index,String]]): IO[VNode] =
+    selected.map{ selected =>
+      div(
+        h1(`class` := "font-sans text-3xl p-6", "FunCalc"),
+        Sheet.ui
+      )
+    }
 }
