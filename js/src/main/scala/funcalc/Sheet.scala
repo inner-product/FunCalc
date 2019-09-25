@@ -3,6 +3,7 @@ package funcalc
 import cats.effect.IO
 import outwatch.dom._
 import outwatch.dom.dsl._
+import monix.execution.Scheduler
 import monix.reactive.Observable
 
 /**
@@ -25,16 +26,21 @@ object Sheet {
   val state: IO[Observable[Map[Index, String]]] =
     commands.map{ c =>
       c.scan(initialState){ (state, command) =>
+        println(s"Command $command")
         command match {
-          case Cell.Selected(idx) => state
           case Cell.Expr(idx, expr) => state + (idx -> expr)
+          case Cell.Selected(_) => state
           case Cell.Empty => state
         }
       }
     }
 
-  val ui: IO[VNode] =
-    commands.map{ c =>
+  def ui(implicit schedule: Scheduler): IO[VNode] =
+    for {
+      c <- commands
+      s <- state
+    } yield {
+      s.subscribe() // Make state actually run
       val cells = indices.map(idx => (idx -> Cell(idx, c))).toMap
 
       table(
