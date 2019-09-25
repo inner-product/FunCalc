@@ -1,6 +1,6 @@
 # Regular Expressions
 
-We're going to start by implementing a technique for _parsing_ text, know as _regular expressions_. We're then going to parse arithmetic expressions into the data structure we've just built and evaluate these expressions. When we've finished we will have built the machinery to take a `String` like "1 + 1" and end up with the value 2. This might not seem like much but we will have actually implemented a tiny programming language!
+We're now going to implement a technique for _parsing_ text, know as _regular expressions_. We're then going to parse arithmetic expressions into the data structure we've just built and evaluate these expressions. When we've finished we will have built the machinery to take a `String` like "1 + 1" and end up with the value 2. This might not seem like much but we will have actually implemented a tiny programming language!
 
 What does parsing mean? It means to break something into its component parts. We usually talk about parsing text, but we can also talk about parsing visual scenes or any other kind of structured input where that structure is not immediately apparent. For example, given the `String` "1 + 2" we might parse "1" and "2" as literals, and the entire expression as the addition of two literals.
 
